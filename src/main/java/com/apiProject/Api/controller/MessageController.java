@@ -19,12 +19,12 @@ public class MessageController {
         messages.add(new Message(2, "Mundo"));
     }
 
-    // Getmapping
+    // Get all messages
     @GetMapping
     public List<Message> getMessages() {
         return messages;
     }
-
+    // Get by id
     @GetMapping("/{id}")
     public Message getMessageById(@PathVariable int id){
         Optional<Message> message = messages.stream()
@@ -32,11 +32,13 @@ public class MessageController {
                 .findFirst();
         return message.orElse(null);
     }
+    // Create new Message
     @PostMapping("/create")
     public Message createMessage(@RequestBody Message message){
          messages.add(message);
          return message;
     }
+    // Delete by id
     @DeleteMapping("/delete/{id}")
     public String deleteMessage(@PathVariable int id){
         messages.removeIf(m -> m.getId() == id );
